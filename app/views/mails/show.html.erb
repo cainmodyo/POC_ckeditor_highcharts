@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>To:</b>
+  <%= @mail.to %>
+</p>
+
+<p>
+  <b>Subject:</b>
+  <%= @mail.subject %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <div style="background-color: white; color: black">
+  <%=raw @mail.body %>
+  </div>
+</p>
+
+
+<%= link_to 'Edit', edit_mail_path(@mail) %> |
+<%= link_to 'Back', mails_path %>

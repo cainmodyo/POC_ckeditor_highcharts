@@ -1,0 +1,83 @@
+<h1>Listing mails</h1>
+<div>
+	<div id="membership-chart"></div>
+</div>
+<table>
+  <tr>
+    <th>To</th>
+    <th>Subject</th>
+    <th>Body</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @mails.each do |mail| %>
+  <tr>
+    <td><%= mail.to %></td>
+    <td><%= mail.subject %></td>
+    <td><%= mail.body %></td>
+    <td><%= link_to 'Show', mail %></td>
+    <td><%= link_to 'Edit', edit_mail_path(mail) %></td>
+    <td><%= link_to 'Destroy', mail, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Mail', new_mail_path %>
+
+
+<script type="text/javascript">
+
+		scopeParam = $.urlParam('scope');
+		idParam = $.urlParam('id');
+		params = {};
+	
+		if (scopeParam) {
+	    	params.scope = scopeParam;
+	 	}
+		if (idParam) {
+	    	params.id = idParam;
+		}
+	      
+		function emptyChartOptions(container){
+		  return {
+		    chart: {
+		      "renderTo": container
+		    },
+		    title: {
+		      "text":""
+		    },
+		    credits: {
+		      "enabled":false
+		    }
+		  }
+		}
+	
+	 	function membershipChartOptions(data) {
+	        options = {
+	          chart:{"type":"spline", "renderTo":"membership-chart", "zoomType":"x"},
+	          title:{"text":data.title.text, "style":{"color":"#666666"}},
+	          
+			legend:{layout: 'vertical', align: 'right', verticalAlign: 'top', x: -10, y: 100, borderWidth: 0},
+	          //legend:{"floating":true, "style":{"left":60, "top":1, "position":"absolute", "bottom":"auto"}},
+	          xAxis:{"type":"datetime", "maxZoom":604800000, "labels":{"enabled":true, "align":"center", "rotation":0, "x":1, "style":{"color":"#666666"}, "y":18}},
+	          yAxis:{"min":0, "title":{"text":data.yAxis.title.text, "style":{"color":"#666666"}}, "allowDecimals":false},
+	          exporting:{"url":"http://ws.modyo.com/chartsexport"},
+	          tooltip:{"enabled":true, crosshairs: true},
+	          credits:{"enabled":false},
+	          series:[
+	            {data:data.series.data, "pointStart":data.series.pointStart, "pointInterval":data.series.pointInterval, name:data.yAxis.title.text}
+	          ]};
+	        return options;
+		}
+	
+		membershipChart = new Highcharts.Chart(emptyChartOptions('membership-chart'));
+		membershipChart.showLoading();
+			
+		$.get('/dummy/membership_chart.json', params, function (data) {
+	    	membershipChart = new Highcharts.Chart(membershipChartOptions(data));
+		});
+</script>
