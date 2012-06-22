@@ -25,9 +25,9 @@ gem 'jquery-rails'
 
 gem "execjs"
 
-gem "ckeditor", "3.7.1"
+gem "ckeditor", :path => 'vendor/gems/ckeditor'
 
-gem "highcharts-rails", "~> 2.2.4"
+gem 'highcharts-rails', :path => 'vendor/gems/highcharts-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

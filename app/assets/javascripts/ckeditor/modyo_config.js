@@ -8,7 +8,6 @@ CKEDITOR.editorConfig = function( config )
   config.toolbar = 'Content';
   config.toolbar_Content =
   [
-    { name: 'document', items : [ 'Source','-' ] },
     { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
     { name: 'editing', items : [ 'Find','Replace','-','SpellChecker' ] },
     { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','-', 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','RemoveFormat'] },
